@@ -1,0 +1,191 @@
+:root {
+  --bg: #f5f4f0;
+  --surface: #ffffff;
+  --surface-soft: #f1efe8;
+  --border: #e0ddd3;
+  --text: #2c2c2a;
+  --text-secondary: #6b6a64;
+  --text-muted: #9a9890;
+  --accent: #185fa5;
+  --success: #3b6d11;
+  --danger: #a32d2d;
+  --radius: 8px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+}
+
+#app {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+}
+
+h1 {
+  font-size: 22px;
+  font-weight: 500;
+  margin: 0 0 1.5rem;
+}
+
+#summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.stat-card {
+  background: var(--surface-soft);
+  border-radius: var(--radius);
+  padding: 1rem;
+}
+
+.stat-card p:first-child {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin: 0 0 4px;
+}
+
+.stat-card p:last-child {
+  font-size: 22px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 8px 12px;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 14px;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.tab-btn.active {
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  font-weight: 500;
+}
+
+form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 1.25rem;
+}
+
+input, select {
+  height: 36px;
+  padding: 0 10px;
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 14px;
+  background: var(--surface);
+  color: var(--text);
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(24, 95, 165, 0.15);
+}
+
+.full {
+  grid-column: 1 / 3;
+}
+
+button[type="submit"] {
+  height: 38px;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--text);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  opacity: 0.9;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 0.5px solid var(--border);
+}
+
+.row p {
+  margin: 0;
+}
+
+.row .desc {
+  font-size: 14px;
+}
+
+.row .meta {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.row .right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.amount {
+  font-weight: 500;
+}
+
+.amount.in {
+  color: var(--success);
+}
+
+.amount.out {
+  color: var(--danger);
+}
+
+.icon-btn {
+  border: 0.5px solid var(--border);
+  background: var(--surface);
+  border-radius: var(--radius);
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.icon-btn:hover {
+  background: var(--surface-soft);
+}
+
+.empty {
+  color: var(--text-muted);
+  font-size: 14px;
+  padding: 1rem 0;
+}
+
+.overdue {
+  color: var(--danger);
+}
