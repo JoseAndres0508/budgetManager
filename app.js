@@ -25,8 +25,11 @@ function save() {
 
 function switchTab(tab) {
   ["mov", "mens", "pend"].forEach(t => {
-    document.getElementById("panel-" + t).style.display = t === tab ? "block" : "none";
-    document.querySelector('.tab-btn[data-tab="' + t + '"]').classList.toggle("active", t === tab);
+    const isActive = t === tab;
+    document.getElementById("panel-" + t).hidden = !isActive;
+    const btn = document.querySelector('.tab-btn[data-tab="' + t + '"]');
+    btn.classList.toggle("active", isActive);
+    btn.setAttribute("aria-selected", String(isActive));
   });
 }
 
@@ -37,36 +40,36 @@ document.querySelectorAll(".tab-btn").forEach(b => {
 function rowMov(item) {
   const sign = item.tipo === "ingreso" ? "+" : "-";
   const cls = item.tipo === "ingreso" ? "in" : "out";
-  const div = document.createElement("div");
-  div.className = "row";
-  div.innerHTML =
+  const li = document.createElement("li");
+  li.className = "row";
+  li.innerHTML =
     '<div><p class="desc">' + item.desc + '</p><p class="meta">' + (item.fecha || "sin fecha") + '</p></div>' +
     '<div class="right"><span class="amount ' + cls + '">' + sign + fmt(item.monto) + '</span>' +
     '<button data-id="' + item.id + '" class="icon-btn del-mov" aria-label="Eliminar">✕</button></div>';
-  return div;
+  return li;
 }
 
 function rowMens(item) {
-  const div = document.createElement("div");
-  div.className = "row";
-  div.innerHTML =
+  const li = document.createElement("li");
+  li.className = "row";
+  li.innerHTML =
     '<div><p class="desc">' + item.desc + '</p><p class="meta">Día ' + item.dia + ' de cada mes</p></div>' +
     '<div class="right"><span class="amount">' + fmt(item.monto) + '</span>' +
     '<button data-id="' + item.id + '" class="icon-btn del-mens" aria-label="Eliminar">✕</button></div>';
-  return div;
+  return li;
 }
 
 function rowPend(item) {
   const today = new Date().toISOString().slice(0, 10);
   const overdue = item.fecha < today;
-  const div = document.createElement("div");
-  div.className = "row";
-  div.innerHTML =
+  const li = document.createElement("li");
+  li.className = "row";
+  li.innerHTML =
     '<div><p class="desc">' + item.desc + '</p><p class="meta' + (overdue ? ' overdue' : '') + '">' + item.fecha + (overdue ? " · vencido" : "") + '</p></div>' +
     '<div class="right"><span class="amount">' + fmt(item.monto) + '</span>' +
     '<button data-id="' + item.id + '" class="icon-btn pay-pend" aria-label="Marcar pagado">✓</button>' +
     '<button data-id="' + item.id + '" class="icon-btn del-pend" aria-label="Eliminar">✕</button></div>';
-  return div;
+  return li;
 }
 
 function render() {
@@ -79,17 +82,17 @@ function render() {
   const listMov = document.getElementById("list-mov");
   listMov.innerHTML = "";
   [...data.mov].sort((a, b) => (b.fecha || "").localeCompare(a.fecha || "")).forEach(item => listMov.appendChild(rowMov(item)));
-  if (data.mov.length === 0) listMov.innerHTML = '<p class="empty">Aún no hay movimientos.</p>';
+  if (data.mov.length === 0) listMov.innerHTML = '<li class="empty">Aún no hay movimientos.</li>';
 
   const listMens = document.getElementById("list-mens");
   listMens.innerHTML = "";
   [...data.mens].sort((a, b) => a.dia - b.dia).forEach(item => listMens.appendChild(rowMens(item)));
-  if (data.mens.length === 0) listMens.innerHTML = '<p class="empty">Aún no hay mensualidades.</p>';
+  if (data.mens.length === 0) listMens.innerHTML = '<li class="empty">Aún no hay mensualidades.</li>';
 
   const listPend = document.getElementById("list-pend");
   listPend.innerHTML = "";
   [...data.pend].sort((a, b) => a.fecha.localeCompare(b.fecha)).forEach(item => listPend.appendChild(rowPend(item)));
-  if (data.pend.length === 0) listPend.innerHTML = '<p class="empty">Aún no hay pagos pendientes.</p>';
+  if (data.pend.length === 0) listPend.innerHTML = '<li class="empty">Aún no hay pagos pendientes.</li>';
 
   document.querySelectorAll(".del-mov").forEach(b => b.addEventListener("click", () => {
     data.mov = data.mov.filter(m => m.id !== b.dataset.id);

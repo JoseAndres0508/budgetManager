@@ -40,7 +40,7 @@ h1 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 12px;
-  margin-bottom: 1.5rem;
+  margin: 0 0 1.5rem;
 }
 
 .stat-card {
@@ -49,13 +49,13 @@ h1 {
   padding: 1rem;
 }
 
-.stat-card p:first-child {
+.stat-card dt {
   font-size: 13px;
   color: var(--text-secondary);
   margin: 0 0 4px;
 }
 
-.stat-card p:last-child {
+.stat-card dd {
   font-size: 22px;
   font-weight: 500;
   margin: 0;
@@ -91,6 +91,14 @@ form {
   margin-bottom: 1.25rem;
 }
 
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
 input, select {
   height: 36px;
   padding: 0 10px;
@@ -124,6 +132,12 @@ button[type="submit"] {
 
 button[type="submit"]:hover {
   opacity: 0.9;
+}
+
+ul[id^="list-"] {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .row {

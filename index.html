@@ -7,64 +7,86 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="app">
+<main id="app">
   <h1>Control de economía personal</h1>
 
-  <div id="summary">
-    <div class="stat-card">
-      <p>Ingresos</p>
-      <p id="sum-in">₡0</p>
-    </div>
-    <div class="stat-card">
-      <p>Gastos</p>
-      <p id="sum-out">₡0</p>
-    </div>
-    <div class="stat-card">
-      <p>Saldo</p>
-      <p id="sum-bal">₡0</p>
-    </div>
-  </div>
+  <section aria-label="Resumen">
+    <dl id="summary">
+      <div class="stat-card">
+        <dt>Ingresos</dt>
+        <dd id="sum-in">₡0</dd>
+      </div>
+      <div class="stat-card">
+        <dt>Gastos</dt>
+        <dd id="sum-out">₡0</dd>
+      </div>
+      <div class="stat-card">
+        <dt>Saldo</dt>
+        <dd id="sum-bal">₡0</dd>
+      </div>
+    </dl>
+  </section>
 
-  <div class="tabs">
-    <button class="tab-btn active" data-tab="mov">Movimientos</button>
-    <button class="tab-btn" data-tab="mens">Mensualidades</button>
-    <button class="tab-btn" data-tab="pend">Pagos pendientes</button>
-  </div>
+  <nav class="tabs" aria-label="Secciones">
+    <button class="tab-btn active" data-tab="mov" id="tab-mov" aria-controls="panel-mov" aria-selected="true">Movimientos</button>
+    <button class="tab-btn" data-tab="mens" id="tab-mens" aria-controls="panel-mens" aria-selected="false">Mensualidades</button>
+    <button class="tab-btn" data-tab="pend" id="tab-pend" aria-controls="panel-pend" aria-selected="false">Pagos pendientes</button>
+  </nav>
 
-  <div id="panel-mov">
+  <section id="panel-mov" aria-labelledby="tab-mov">
     <form id="form-mov">
-      <input type="text" id="mov-desc" placeholder="Descripción" required class="full" />
-      <select id="mov-tipo">
-        <option value="ingreso">Ingreso</option>
-        <option value="gasto">Gasto</option>
-      </select>
-      <input type="number" id="mov-monto" placeholder="Monto" step="1" required />
-      <input type="date" id="mov-fecha" class="full" />
+      <label for="mov-desc" class="full">Descripción
+        <input type="text" id="mov-desc" name="mov-desc" required>
+      </label>
+      <label for="mov-tipo">Tipo
+        <select id="mov-tipo" name="mov-tipo">
+          <option value="ingreso">Ingreso</option>
+          <option value="gasto">Gasto</option>
+        </select>
+      </label>
+      <label for="mov-monto">Monto
+        <input type="number" id="mov-monto" name="mov-monto" step="1" required>
+      </label>
+      <label for="mov-fecha" class="full">Fecha
+        <input type="date" id="mov-fecha" name="mov-fecha">
+      </label>
       <button type="submit" class="full">Agregar movimiento</button>
     </form>
-    <div id="list-mov"></div>
-  </div>
+    <ul id="list-mov"></ul>
+  </section>
 
-  <div id="panel-mens" style="display:none;">
+  <section id="panel-mens" aria-labelledby="tab-mens" hidden>
     <form id="form-mens">
-      <input type="text" id="mens-desc" placeholder="Nombre (ej. Netflix, alquiler)" required class="full" />
-      <input type="number" id="mens-monto" placeholder="Monto mensual" step="1" required />
-      <input type="number" id="mens-dia" placeholder="Día de pago (1-31)" min="1" max="31" required />
+      <label for="mens-desc" class="full">Nombre
+        <input type="text" id="mens-desc" name="mens-desc" placeholder="Netflix, alquiler" required>
+      </label>
+      <label for="mens-monto">Monto mensual
+        <input type="number" id="mens-monto" name="mens-monto" step="1" required>
+      </label>
+      <label for="mens-dia">Día de pago
+        <input type="number" id="mens-dia" name="mens-dia" min="1" max="31" required>
+      </label>
       <button type="submit" class="full">Agregar mensualidad</button>
     </form>
-    <div id="list-mens"></div>
-  </div>
+    <ul id="list-mens"></ul>
+  </section>
 
-  <div id="panel-pend" style="display:none;">
+  <section id="panel-pend" aria-labelledby="tab-pend" hidden>
     <form id="form-pend">
-      <input type="text" id="pend-desc" placeholder="Descripción del pago" required class="full" />
-      <input type="number" id="pend-monto" placeholder="Monto" step="1" required />
-      <input type="date" id="pend-fecha" required />
+      <label for="pend-desc" class="full">Descripción del pago
+        <input type="text" id="pend-desc" name="pend-desc" required>
+      </label>
+      <label for="pend-monto">Monto
+        <input type="number" id="pend-monto" name="pend-monto" step="1" required>
+      </label>
+      <label for="pend-fecha">Fecha límite
+        <input type="date" id="pend-fecha" name="pend-fecha" required>
+      </label>
       <button type="submit" class="full">Agregar pago pendiente</button>
     </form>
-    <div id="list-pend"></div>
-  </div>
-</div>
+    <ul id="list-pend"></ul>
+  </section>
+</main>
 
 <script src="app.js"></script>
 </body>
